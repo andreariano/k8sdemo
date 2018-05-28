@@ -1,0 +1,30 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  k8s
+  labels:
+    run: k8s 
+spec:
+  selector:
+    app:  k8s
+  type:  NodePort
+  ports:
+  - name:  http
+    port:  80
+    targetPort:  3000
+    protocol: TCP
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: k8s
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8s
+    spec:
+      containers:
+      - name: k8s
+        image: aariano/k8s

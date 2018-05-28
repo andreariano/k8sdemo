@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  k8s-db
+  labels:
+    run: k8s-db
+spec:
+  selector:
+    app:  k8s-db
+  type:  NodePort
+  ports:
+  - name:  mssql
+    port:  1433
+    targetPort:  1433
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8s-db
+    spec:
+      containers:
+      - name: k8s-db
+        image: microsoft/mssql-server-linux:2017-latest
+        ports:
+        - containerPort:  1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: "Senh@123"

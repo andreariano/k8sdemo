@@ -1,0 +1,22 @@
+{
+  "name": "k8s",
+  "version": "1.0.0",
+  "description": "kubernetes demo app",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "db": "docker run -e \"ACCEPT_EULA=Y\" -e \"SA_PASSWORD=P@$$word\" -p 1433:1433 --name mssql -d microsoft/mssql-server-linux:2017-latest",
+    "setupDb": "docker exec -it mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P P@$$word -i script.sql",
+    "api": ""
+  },
+  "author": "Andre Ariano",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mssql": "^4.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
